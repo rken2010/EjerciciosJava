@@ -83,6 +83,21 @@ public class TestFutsal {
 	}
 	
 	@Test
+	public void promedioEdadDelEquipo() {
+		Jugador Messi = new Jugador(  123456,  "LEONEL" ,  "MESSI" ,  10,  34, 500.0 ,true, Puesto.DELANTERO);
+		Jugador Neymar = new Jugador(  789465,  "NEY" ,  "NEYMAR" ,  10,  32, 500.0 ,true, Puesto.DELANTERO);
+		
+		Partido libertadores = new Partido( 1 );
+		libertadores.agregarJugador(Messi);
+		libertadores.agregarJugador(Neymar);
+		
+		double valorEsperado = 33;
+		double valorActual = libertadores.calcularPromedioEquipoLocal();
+		
+		assertEquals(valorEsperado, valorActual, 0.1 );
+	}
+	
+	@Test
 	public void queSeRegistreElGol() {
 		
 		Jugador Messi = new Jugador(  123456,  "LEONEL" ,  "MESSI" ,  10,  34, 500.0 ,true, Puesto.DELANTERO);

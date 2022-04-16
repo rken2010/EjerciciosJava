@@ -60,6 +60,14 @@ public class Partido {
 		return valorEquipo;
 	}
 	
+	public double calcularPromedioEquipoLocal() {
+		double edadEquipo = 0.0;
+		for (int i = 0; i < equipoLocal.size(); i++) {
+			edadEquipo += equipoLocal.get(i).getEdad();
+		}
+		return edadEquipo / equipoLocal.size();
+	}
+	
 	public double valorDelEquipoVisitante() {
 		double valorEquipo = 0.0;
 		for (int i = 0; i < equipoVisitante.size(); i++) {
@@ -112,6 +120,8 @@ public class Partido {
 			else { amonestados.add(jugadorAmonestado);}
 		}
 	}
+
+	
 	
 	
 }
