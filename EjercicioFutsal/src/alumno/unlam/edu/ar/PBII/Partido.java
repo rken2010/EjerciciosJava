@@ -10,9 +10,7 @@ public class Partido {
 	public int numeroPartido;
 	ArrayList<Jugador> equipoLocal;
 	ArrayList<Jugador> equipoVisitante;
-	ArrayList<Jugador> goles;
-	ArrayList<Jugador> amonestados;
-	ArrayList<Jugador> expulsados;
+	ArrayList<Eventos> eventosDelPartido;
 	
 	
 	public Partido(int numeroPartido) {
@@ -20,9 +18,7 @@ public class Partido {
 		this.numeroPartido = numeroPartido;
 		this.equipoLocal = new ArrayList<Jugador>();
 		this.equipoVisitante = new ArrayList<Jugador>();
-		this.goles = new ArrayList<Jugador>();
-		this.amonestados = new ArrayList<Jugador>();
-		this.expulsados = new ArrayList<Jugador>();
+		this.eventosDelPartido = new ArrayList<Eventos>();
 	}
 
 	public void agregarJugador(Jugador jugadorParaAgregar) {
@@ -52,6 +48,16 @@ public class Partido {
 		return null;
 	}
 	
+	public Jugador buscarJugadorEnEventosDelPartido( int dniABuscar) {
+		for (int i = 0; i < eventosDelPartido.size(); i++) {
+			if(eventosDelPartido.get(i).getJugadorDelEvento().getDNI()== dniABuscar) {
+				return eventosDelPartido.get(i).getJugadorDelEvento();
+			}
+		}
+		return null;
+		
+	}
+	
 	public double valorDelEquipoLocal() {
 		double valorEquipo = 0.0;
 		for (int i = 0; i < equipoLocal.size(); i++) {
@@ -77,24 +83,24 @@ public class Partido {
 	}
 
 
-	public void registrarGolLocal(Jugador anotador) {
-		if( buscarJugadorPorDNIEnEquipoLocal(anotador.getDNI()) != null) {
-			goles.add(anotador);
+	public void registrarGol(Jugador anotador , int minutoAnotacion) {
+		if ( buscarJugadorPorDNIEnEquipoLocal( anotador.getDNI()) != null) {
+			Eventos gol = new Eventos ( anotador, ListaEventos.GOL, minutoAnotacion);
+			eventosDelPartido.add(gol);
 		}
-	}
-	
-	public void registrarGolVisitante(Jugador anotador) {
-		if( buscarJugadorPorDNIEnEquipoVisitante(anotador.getDNI()) != null) {
-			goles.add(anotador);
+		else if ( buscarJugadorPorDNIEnEquipoVisitante(anotador.getDNI()) != null ) {
+			Eventos gol = new Eventos ( anotador, ListaEventos.GOL, minutoAnotacion);
+			eventosDelPartido.add(gol);
 		}
+		
 	}
 
 	public String mostrarResultado() {
 		int golesLocales = 0;
 		int golesVisitantes = 0;
 		
-		for (int i = 0; i < goles.size(); i++) {
-			if ( goles.get(i).isLocal() == true) {
+		for (int i = 0; i < eventosDelPartido.size(); i++) {
+			if ( eventosDelPartido.get(i).getEvento() == ListaEventos.GOL && eventosDelPartido.get(i).getJugadorDelEvento().isLocal()==true) {
 				golesLocales ++;
 			}
 			else { golesVisitantes ++; };
@@ -104,21 +110,29 @@ public class Partido {
 		
 	}
 
-	public void amonestarJugador(Jugador jugadorAmonestado) {
-		if( buscarJugadorPorDNIEnEquipoVisitante(jugadorAmonestado.getDNI()) != null) {
-			if(amonestados.contains(jugadorAmonestado)) {
-				expulsados.add(jugadorAmonestado);
-				amonestados.remove(jugadorAmonestado);
+	public void amonestarJugador(Jugador jugadorAmonestado , int minutoAmonestacion) {
+		if( eventosDelPartido.size() != 0) {
+			for (int i = 0; i < equipoVisitante.size(); i++) {
+				if( eventosDelPartido.get(i).getEvento() == ListaEventos.AMONESTACION) {
+					if( eventosDelPartido.get(i).getJugadorDelEvento().getDNI() == jugadorAmonestado.getDNI()) {
+						expulsarJugador(jugadorAmonestado, minutoAmonestacion);
+					}
+					else {
+						Eventos amonestacion = new Eventos ( jugadorAmonestado ,  ListaEventos.AMONESTACION, minutoAmonestacion );
+						eventosDelPartido.add(amonestacion);
+					}
+				}
 			}
-			else { amonestados.add(jugadorAmonestado);}
 		}
-		else if ( buscarJugadorPorDNIEnEquipoLocal(jugadorAmonestado.getDNI()) != null){
-			if(amonestados.contains(jugadorAmonestado)) {
-				expulsados.add(jugadorAmonestado);
-				amonestados.remove(jugadorAmonestado);
-			}
-			else { amonestados.add(jugadorAmonestado);}
+		else { 
+			Eventos amonestacion = new Eventos ( jugadorAmonestado ,  ListaEventos.AMONESTACION, minutoAmonestacion );
+			eventosDelPartido.add(amonestacion);
 		}
+	}
+	
+	public void expulsarJugador (Jugador jugadorExpulsado , int minutoExpusion ) {
+		Eventos expulsion = new Eventos ( jugadorExpulsado ,  ListaEventos.EXPULSION, minutoExpusion );
+		eventosDelPartido.add(expulsion);
 	}
 
 	
