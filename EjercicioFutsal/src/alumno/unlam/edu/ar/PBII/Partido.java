@@ -111,8 +111,8 @@ public class Partido {
 	}
 
 	public void amonestarJugador(Jugador jugadorAmonestado , int minutoAmonestacion) {
-		if( eventosDelPartido.size() != 0) {
-			for (int i = 0; i < equipoVisitante.size(); i++) {
+		if( eventosDelPartido.size() != 0 ) {
+			for (int i = 0; i <= equipoVisitante.size(); i++) {
 				if( eventosDelPartido.get(i).getEvento() == ListaEventos.AMONESTACION) {
 					if( eventosDelPartido.get(i).getJugadorDelEvento().getDNI() == jugadorAmonestado.getDNI()) {
 						expulsarJugador(jugadorAmonestado, minutoAmonestacion);

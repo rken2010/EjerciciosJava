@@ -159,11 +159,11 @@ public class TestFutsal {
 		libertadores.agregarJugador(Messi);
 		libertadores.agregarJugador(Neymar);
 		libertadores.amonestarJugador(Messi , 5);
-		libertadores.amonestarJugador(Messi , 5);
+		libertadores.amonestarJugador(Messi , 10);
 
 		
 		Jugador expecteds = Messi;
-		Jugador actuals = libertadores.eventosDelPartido.get(0).getJugadorDelEvento();
+		Jugador actuals = libertadores.eventosDelPartido.get(1).getJugadorDelEvento();
 			
 		assertEquals(expecteds, actuals);
 	}
