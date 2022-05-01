@@ -1,7 +1,7 @@
 package alumno.unlam.edu.ar.PBII;
 
 public class Jugador {
-	
+
 	private final int DNI;
 	private final String NOMBRE;
 	private final String APELLIDO;
@@ -11,8 +11,8 @@ public class Jugador {
 	private boolean local;
 	private Puesto puesto;
 
-
-	public Jugador (int DNI, String NOMBRE, String APELLIDO, int numero, int edad, double valorJugador, boolean local, Puesto puesto) {
+	public Jugador(int DNI, String NOMBRE, String APELLIDO, int numero, int edad, double valorJugador, boolean local,
+			Puesto puesto) {
 		this.DNI = DNI;
 		this.NOMBRE = NOMBRE;
 		this.APELLIDO = APELLIDO;
@@ -66,11 +66,5 @@ public class Jugador {
 	public String getAPELLIDO() {
 		return APELLIDO;
 	}
-
-	
-
-	
-	
-	
 
 }

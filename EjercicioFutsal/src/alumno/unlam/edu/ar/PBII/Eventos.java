@@ -4,7 +4,7 @@ public class Eventos {
 	private Jugador jugadorDelEvento;
 	private ListaEventos evento;
 	private int minutoDelEvento;
-	
+
 	public Eventos(Jugador jugadorDelEvento, ListaEventos evento, int minutoDelEvento) {
 
 		this.jugadorDelEvento = jugadorDelEvento;
@@ -31,9 +31,5 @@ public class Eventos {
 	public ListaEventos getEvento() {
 		return evento;
 	}
-	
-	
-	
-	
 
 }
